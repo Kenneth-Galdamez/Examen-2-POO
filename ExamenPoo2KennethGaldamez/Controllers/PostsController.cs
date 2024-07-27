@@ -4,21 +4,21 @@ using ExamenPoo2KennethGaldamez.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlogUNAH.API.Controllers
+namespace ExamenPoo2KennethGaldamez.Controllers
 {
-    [Route("api/posts")]
+    [Route("api/loans")]
     [ApiController]
-    public class PostsController : ControllerBase
+    public class LoansController : ControllerBase
     {
-        private readonly IPostsService _postsService;
+        private readonly ILoansService _loansService;
 
-        public PostsController(IPostsService postsService)
+        public LoansController(ILoansService LoansService)
         {
-            this._postsService = postsService;
+            this._loansService = loansService;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseDto<PostDto>>> GetOneById(Guid id) 
+        public async Task<ActionResult<ResponseDto<PostDto>>> GetOneById(Guid id)
         {
             var response = await _postsService.GetByIdAsync(id);
 
@@ -31,9 +31,9 @@ namespace BlogUNAH.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseDto<PostDto>>> Create(PostCreateDto dto) 
+        public async Task<ActionResult<ResponseDto<LoansDto>>> Create(LoanCreateDto dto)
         {
-            var response = await _postsService.CreateAsync(dto);
+            var response = _loansService.CreateAsync(dto);
 
             return StatusCode(response.StatusCode, new
             {
@@ -43,10 +43,10 @@ namespace BlogUNAH.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseDto<PostDto>>> Edit(PostEditDto dto, 
+        public async Task<ActionResult<ResponseDto>LoanDto>>> Edit(PostEditDto dto,
             Guid id)
         {
-            var response = await _postsService.EditAsync(dto, id);
+            var response = await _loans Service.EditAsync(dto, id);
 
             return StatusCode(response.StatusCode, new
             {
