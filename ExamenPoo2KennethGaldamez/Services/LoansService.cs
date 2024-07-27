@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ExamenPoo2KennethGaldamez.Database;
 using ExamenPoo2KennethGaldamez.Database.Entities;
 using ExamenPoo2KennethGaldamez.Dtos.Common;
@@ -27,85 +27,94 @@ namespace BlogUNAH.API.Services
             this._mapper = mapper;
         }
 
-        public async Task<ResponseDto<LoanDto>> GetLoansByIdAsync(Guid id) 
+        public async Task<ResponseDto<LoanDto>> GetLoansByIdAsync(Guid id)
         {
-            var postEntity = await _context.Posts
-                .Include(x => x.Category)
-                .Include(x => x.Tags)
-                .ThenInclude(x => x.Tag)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var loanEntity = await _context.Loans.FirstOrDefaultAsync(c => c.ClientId == id)
 
-            if(postEntity is null) 
+
+            if (loanEntity is null)
             {
-                return new ResponseDto<LoanDto> 
+                return new ResponseDto<LoanDto>
                 {
                     StatusCode = 404,
                     Status = false,
-                    Message = $"El registo {id} no fue encontrado."
+                    Message = $"El registo del cliente {id} no fue encontrado."
                 };
             }
 
-            var postDto = _mapper.Map<LoanDto>(postEntity);
+            var loanDto = _mapper.Map<List<LoanDto>>(loanEntity);
 
-            return new ResponseDto<LoanDto> 
+            return new ResponseDto<List<LoanDto>>
             {
                 StatusCode = 200,
                 Status = true,
                 Message = "Registro encontrado correctamente",
-                Data = postDto,
+                Data = loanDto,
             };
         }
 
-        public async Task<ResponseDto<LoanDto>> CreateAsync(LoanCreateDto dto) 
+        public async Task<ResponseDto<LoanDto>> CreateAsync(LoanCreateDto dto)
         {
-            using (var transaction  = await _context.Database.BeginTransactionAsync()) 
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    var newprospects = new ProspectEntity
-                    {
-                        client_Name = dto.client_Name,
-                        identity_number = dto.identity_number,
-                    };
-
-                    _context.Prospects.Add(newprospects);
-                    await _context.SaveChangesAsync();
-
 
                     var loanEntity = _mapper.Map<LoanEntity>(dto);
 
+                    var existing = await _context.Prospects
+                        .Where(t => dto.identity_number == t.identity_number)
+
+                    if (existing is null)
+                    {
+                        var newprospects = new ProspectEntity
+                        {
+                            client_Name = dto.client_Name,
+                            identity_number = dto.identity_number,
+                        }
+                        _context.Prospects.Add(newprospects);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    else
+                    {
+
+                        loanEntity.ClientId = existing.Id;
+
+                    };
 
 
                     _context.Loans.Add(loanEntity);
                     await _context.SaveChangesAsync();
 
-
-
-
-
                     await transaction.CommitAsync();
 
-                    return new ResponseDto<LoanDto> 
+                    var loanDto = _mapper.Map<LoanDto>(loanEntity);
+
+                    return new ResponseDto<LoanDto>
                     {
                         StatusCode = 201,
                         Status = true,
                         Message = "Registro creado correctamente",
+                        Data = loanDto
                     };
                 }
-                catch (Exception e) 
+                catch (Exception e)
                 {
                     await transaction.RollbackAsync();
                     _logger.LogError(e, "Error al crear");
-                    return new ResponseDto<LoanDto> 
+                    return new ResponseDto<LoanDto>
                     {
                         StatusCode = 500,
                         Status = false,
                         Message = "Se produjo un error al crear."
+
                     };
                 }
+
             }
         }
 
-     
+
     }
 }
