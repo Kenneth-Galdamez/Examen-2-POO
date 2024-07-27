@@ -11,12 +11,12 @@ namespace ExamenPoo2KennethGaldamez
     {
         private IConfiguration Configuration { get; }
 
-        public Startup( IConfiguration configuration )
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services) 
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
@@ -25,18 +25,18 @@ namespace ExamenPoo2KennethGaldamez
             var name = Configuration.GetConnectionString("DefaultConnection");
 
             // Add DbContext
-            services.AddDbContext<Examen2Context>(options => 
+            services.AddDbContext<Examen2Context>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Add custom services
-            services.AddTransient<ILoansService, CategoriesSQLService>();
+            services.AddTransient<ILoansService, LoansService>();
             services.AddTransient<IAuthService, AuthService>();
 
             // Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -50,7 +50,7 @@ namespace ExamenPoo2KennethGaldamez
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => 
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
