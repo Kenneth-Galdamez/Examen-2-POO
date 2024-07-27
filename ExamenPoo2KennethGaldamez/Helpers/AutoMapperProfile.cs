@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ExamenPoo2KennethGaldamez.Database.Entities;
 using ExamenPoo2KennethGaldamez.Dtos.Loans;
 using ExamenPoo2KennethGaldamez.Dtos.Prospects;
@@ -15,16 +15,19 @@ namespace BlogUNAH.API.Helpers
 
         private void MapsForLoans()
         {
-            CreateMap<LoanEntity, LoanDto>();
+            CreateMap<LoanEntity, LoanDto>()
+                .ForMember(dest => dest.levelpayment, opt => opt.MapFrom(src => (src.Loan_amount) / Math.Pow((1 - (1 + src.tasa_interes)), -src.plazo) / src.tasa_interes));
+                .ForMember(dest => dest.saldo, opt => opt.MapFrom(src => src.Loan_amount + ((src.Loan_amount) / Math.Pow((1 - (1 + src.tasa_interes)), -src.plazo) / src.tasa_interes)));
+
+
             CreateMap<LoanCreateDto, LoanEntity>();
-            CreateMap<LoanEditDto,LoanEntity>();
+
         }
 
-        private void MapsForProspects() 
+        private void MapsForProspects()
         {
-            CreateMap<ProspectEntity, ProspectDto>();
+            CreateMap<ProspectEntity, ProspectDto>()
             CreateMap<ProspectCreateDto, ProspectEntity>();
-            CreateMap<ProspectEditDto, ProspectEntity>();
         }
     }
 }
