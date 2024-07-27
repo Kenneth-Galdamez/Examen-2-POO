@@ -1,0 +1,8 @@
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.csproj.AssemblyReference.cache
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.AssemblyInfoInputs.cache
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.AssemblyInfo.cs
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Usuario\POOKLGG\ExamenPoo2KennethGaldamez\ExamenPoo2KennethGaldamez\obj\Debug\net8.0\ExamenPoo2KennethGaldamez.sourcelink.json
