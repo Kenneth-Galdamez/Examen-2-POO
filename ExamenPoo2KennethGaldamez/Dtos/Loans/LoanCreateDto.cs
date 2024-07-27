@@ -1,4 +1,4 @@
-﻿using ExamenPoo2KennethGaldamez.Database.Entities;
+using ExamenPoo2KennethGaldamez.Database.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,8 +18,17 @@ namespace ExamenPoo2KennethGaldamez.Dtos.Loans
         [Required]
         public float Loan_amount { get; set; }
 
+
+
         [Required]
-        public float tasa_comision { get; set; }
+
+        public DateTime firstpaymentdate { get; set; }
+
+
+        [Required]
+
+        public DateTime disbursementdate { get; set; }
+
 
         [Required]
 
