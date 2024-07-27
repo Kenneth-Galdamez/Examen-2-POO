@@ -1,4 +1,4 @@
-﻿using ExamenPoo2KennethGaldamez.Dtos.Common;
+using ExamenPoo2KennethGaldamez.Dtos.Common;
 using ExamenPoo2KennethGaldamez.Dtos.Loans;
 using ExamenPoo2KennethGaldamez.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -42,17 +42,6 @@ namespace ExamenPoo2KennethGaldamez.Controllers
             });
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseDto>LoanDto>>> Edit(PostEditDto dto,
-            Guid id)
-        {
-            var response = await _loans Service.EditAsync(dto, id);
-
-            return StatusCode(response.StatusCode, new
-            {
-                response.Status,
-                response.Message,
-            });
-        }
+        
     }
 }
